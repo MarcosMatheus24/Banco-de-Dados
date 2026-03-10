@@ -1,0 +1,14 @@
+create table Alunos(nome varchar(50) not null , matricula integer primary key not null auto_increment unique, telefone varchar(50) not null unique);
+insert into Alunos(nome, telefone) values("Matheus","746378373");
+select * from Alunos;
+create table Professores(nome varchar(50) not null, ID integer primary key not null auto_increment unique, area_atuacao varchar(50));
+insert into Professores (nome, area_atuacao)values("Celso", "Proramação");
+select * from Professores;
+create table Disciplinas(nome varchar(50) not null, IdProfessor integer, foreign key (IdProfessor) references Professores(ID), ID integer primary key not null auto_increment unique, carga_horaria int);
+insert into Disciplinas (nome, carga_horaria)values ("Matemática", 140);
+select * from Disciplinas;
+create table Matriculas(MatriculaAlunos integer, foreign key (MatriculaAlunos) references Alunos(matricula), IdDisciplinas integer, foreign key (IdDisciplinas) references Disciplinas(ID), Semestre int);
+insert into Matriculas (Semestre)values (1);
+select * from Matriculas;
+describe Alunos;
+show tables;
