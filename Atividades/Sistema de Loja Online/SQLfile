@@ -1,1 +1,12 @@
-
+create table Clientes (CPF varchar(14) primary key not null unique, nome varchar(50), telefone varchar(50), email varchar(254));
+insert into Clientes(CPF, nome, telefone, email) values ("20391837491045","Matheus", "824729472", "RDmogador@gmail.com");
+select * from Clientes;
+create table Produtos (ID int primary key not null unique auto_increment, nome varchar(50), preco double, quantidade int);
+insert into Produtos(nome, preco, quantidade) values("Melancia", 345.5, 5);
+select * from Produtos;
+create table Pedidos (ID int primary key auto_increment not null unique, data_pedido date, CPF_Cliente varchar(14), foreign key (CPF_Cliente) references Clientes(CPF),ID_Produtos int, foreign key (ID_Produtos) references Produtos(ID));
+insert into Pedidos (Data_Pedido)values ("2008-03-13");
+select * from Pedidos;
+show tables;
+drop table Clientes;
+drop table Pedidos;
