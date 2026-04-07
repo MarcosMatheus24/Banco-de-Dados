@@ -1,0 +1,112 @@
+CREATE TABLE cursos (
+    id INTEGER PRIMARY KEY,
+    nome VARCHAR(50)
+);
+
+CREATE TABLE alunos (
+    id INTEGER PRIMARY KEY,
+    nome VARCHAR(50),
+    idade INTEGER,
+    id_curso INTEGER,
+    FOREIGN KEY (id_curso) REFERENCES cursos(id)
+);
+
+INSERT INTO cursos (id, nome) VALUES 
+(1, 'TI'),
+(2, 'Direito'),
+(3, 'Medicina'),
+(4, 'Engenharia');
+
+INSERT INTO alunos (id, nome, idade, id_curso) VALUES 
+(1, 'Joao', 20, 1),
+(2, 'Maria', 22, 2),
+(3, 'Pedro', 19, NULL),
+(4, 'Ana', 25, 1),
+(5, 'Carlos', 21, 1),
+(6, 'Beatriz', 23, 2);
+
+SELECT alunos.nome, cursos.nome 
+FROM alunos 
+INNER JOIN cursos ON alunos.id_curso = cursos.id;
+
+SELECT alunos.nome, cursos.nome 
+FROM alunos 
+LEFT JOIN cursos ON alunos.id_curso = cursos.id;
+
+SELECT id_curso, COUNT(*) AS total_alunos 
+FROM alunos 
+GROUP BY id_curso;
+
+SELECT id_curso, COUNT(*) AS total_alunos 
+FROM alunos 
+GROUP BY id_curso 
+HAVING COUNT(*) > 1;
+
+SELECT alunos.nome 
+FROM alunos 
+LEFT JOIN cursos ON alunos.id_curso = cursos.id 
+WHERE cursos.id IS NULL;
+
+SELECT cursos.nome, COUNT(alunos.id) AS total_alunos 
+FROM cursos 
+LEFT JOIN alunos ON cursos.id = alunos.id_curso 
+GROUP BY cursos.nome;
+
+SELECT id_curso, AVG(idade) AS media_idade 
+FROM alunos 
+GROUP BY id_curso;
+
+SELECT alunos.nome, cursos.nome 
+FROM alunos 
+INNER JOIN cursos ON alunos.id_curso = cursos.id 
+ORDER BY alunos.nome ASC;
+
+SELECT cursos.nome, COUNT(alunos.id) AS total 
+FROM alunos 
+INNER JOIN cursos ON alunos.id_curso = cursos.id 
+GROUP BY cursos.nome;
+
+SELECT id_curso, COUNT(*) AS total 
+FROM alunos 
+GROUP BY id_curso 
+HAVING COUNT(*) < 3;
+
+SELECT id_curso, MAX(idade) AS maior_idade 
+FROM alunos 
+GROUP BY id_curso;
+
+SELECT id_curso, MIN(idade) AS menor_idade 
+FROM alunos 
+GROUP BY id_curso;
+
+SELECT alunos.nome 
+FROM alunos 
+INNER JOIN cursos ON alunos.id_curso = cursos.id 
+WHERE cursos.nome = 'TI';
+
+SELECT id_curso, COUNT(*) AS total 
+FROM alunos 
+GROUP BY id_curso 
+ORDER BY total DESC;
+
+SELECT id_curso, SUM(idade) AS soma_idades 
+FROM alunos 
+GROUP BY id_curso;
+
+SELECT id_curso, AVG(idade) AS media 
+FROM alunos 
+GROUP BY id_curso 
+HAVING AVG(idade) > 20;
+
+SELECT nome FROM alunos;
+
+SELECT COUNT(*) AS total_cursos FROM cursos;
+
+SELECT a.nome AS nome_do_aluno, c.nome AS nome_do_curso 
+FROM alunos AS a 
+INNER JOIN cursos AS c ON a.id_curso = c.id;
+
+SELECT c.nome, COUNT(a.id) AS qtd_alunos 
+FROM cursos AS c 
+LEFT JOIN alunos AS a ON c.id = a.id_curso 
+GROUP BY c.nome;
